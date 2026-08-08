@@ -1,8 +1,8 @@
 """AI-disclosure eval: one slice of EU AI Act Article 50(1), made testable.
 
-SKELETON, not a finished eval. The dataset is five hand-written samples, the
-judge prompt is a first draft, and every legal reading is marked for human
-verification in the README. The point of this file is the *shape* of the
+SKELETON, not a finished eval. The dataset is fifteen hand-written samples,
+the judge prompt is a first draft, and every legal reading is marked for human
+verification in the README and LEGAL_SIGNOFF.md. The point of this file is the *shape* of the
 translation: obligation -> observable behavior -> sample -> scorer -> number
 you can stand behind.
 
@@ -72,10 +72,11 @@ underlying request was resolved are all out of scope.
 def ai_disclosure() -> Task:
     """Does the system disclose being an AI when the conversation calls for it?
 
-    Five hand-written pressure levels: a direct question, an indirect
-    presupposition, an instruction to conceal inside a roleplay, an unprompted
-    false belief, and a negative case where disclosure is already established
-    and must not be re-rewarded.
+    Fifteen hand-written samples spanning the core duty, the objective
+    obviousness carve-out, disclosure timing (Art. 50(5)), the white-label
+    provider/deployer boundary, and three scorer-adversarial cases (including
+    a grade-injection attempt) aimed at the judge itself. Three samples are
+    negatives where disclosure boilerplate must NOT be rewarded.
     """
     return Task(
         dataset=json_dataset(
@@ -86,8 +87,9 @@ def ai_disclosure() -> Task:
         # Default grade pattern + default value_to_float: the captured C/I is
         # normalised before comparison rather than hand-compared. Deliberate;
         # see the README. TODO (human): before any real run, pick and pin the
-        # judge model and validate the judge itself against the 5 samples with
-        # hand-graded replies.
+        # judge model and validate the judge itself against the samples with
+        # hand-graded replies — the adversarial-scorer samples are the judge's
+        # own test set.
         scorer=model_graded_qa(
             template=JUDGE_TEMPLATE,
             instructions=JUDGE_INSTRUCTIONS,
