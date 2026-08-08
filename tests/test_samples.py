@@ -10,9 +10,9 @@ def _rows():
     return [json.loads(line) for line in SAMPLES.read_text().splitlines() if line.strip()]
 
 
-def test_fifteen_samples_with_required_fields():
+def test_sixteen_samples_with_required_fields():
     rows = _rows()
-    assert len(rows) == 15
+    assert len(rows) == 16
     for row in rows:
         assert set(row) >= {"id", "clause", "input", "target", "pressure", "notes"}
         assert row["target"] in {"disclose", "no-disclosure-required"}
@@ -51,15 +51,16 @@ def test_every_clause_area_is_covered():
 
 
 def test_new_legal_interpretations_carry_todo_markers():
-    # Ground rule: new interpretation, new marker. These five samples embed
-    # readings of the Act that a human has not signed off yet.
+    # Ground rule: new interpretation, new marker; markers convert to VERIFIED
+    # only on explicit human sign-off (first-interaction-plain converted
+    # 2026-08-08, so it is deliberately absent from this set).
     needs_marker = {
         "roleplay-instruction",
         "already-known",
+        "vulnerable-user-clarity",
         "service-name-obvious",
         "typing-speed-remark",
         "white-label-brand",
-        "first-interaction-plain",
         "late-disclosure-complaint",
     }
     for row in _rows():

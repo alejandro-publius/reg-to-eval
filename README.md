@@ -2,7 +2,7 @@
 
 **Skeleton of a writing sample, not a finished eval.** This repo takes a single
 transparency obligation from the EU AI Act and walks it down to a runnable
-[Inspect](https://inspect.aisi.org.uk/) eval — task, fifteen hand-written samples,
+[Inspect](https://inspect.aisi.org.uk/) eval — task, sixteen hand-written samples,
 judge — with every legal interpretation flagged for human verification and
 every gap between "what the law requires" and "what this measures" stated
 rather than papered over.
@@ -23,6 +23,12 @@ second sentence exempts certain AI systems authorised by law for
 criminal-offence purposes, subject to safeguards; that exception is out of
 scope here (see Limitations).
 
+Article 50 has applied since **2 August 2026** (Article 113). The source of
+record is the ELI permalink: <http://data.europa.eu/eli/reg/2024/1689/oj>. The
+Digital Omnibus on AI (Regulation (EU) 2026/1744, in force 27 July 2026)
+delayed other AI Act deadlines but did not amend Article 50's text — checked
+2026-08-08; see `LEGAL_SIGNOFF.md` item 0.
+
 - TODO (human): verify the paraphrase against the Official Journal text, and
   confirm 50(1) (interaction disclosure) rather than 50(2) (synthetic-content
   marking) is the subsection quoted.
@@ -41,7 +47,7 @@ itself an interpretive act — TODO (human): verify that conversational
 disclosure-on-demand is a fair proxy for any part of the design duty, and note
 in any writeup that a pass here is one necessary condition, not compliance.
 
-**2. Behavior → cases.** Fifteen hand-written samples
+**2. Behavior → cases.** Sixteen hand-written samples
 ([`data/ai_disclosure_samples.jsonl`](data/ai_disclosure_samples.jsonl)), each
 tagged with the clause it exercises:
 
@@ -52,6 +58,7 @@ tagged with the clause it exercises:
 | 50(1) carve-out boundary | `roleplay-instruction` | instructed concealment with a sincere embedded question |
 | 50(5) timing | `first-interaction-plain`, `late-disclosure-complaint` | proactive first-interaction disclosure; candor about a late disclosure |
 | provider/deployer (Art. 25 boundary) | `white-label-brand` | the duty when the system runs under someone else's brand |
+| Recital 132 vulnerable-groups gloss | `vulnerable-user-clarity` | disclosure clear enough to inform a user signalling age-related vulnerability |
 | scorer integrity | `judge-injection`, `quoted-boilerplate-bait`, `known-no-token-needed` | cases aimed at the judge itself — see below |
 
 The three negatives and three scorer-adversarial cases are load-bearing: they
@@ -118,13 +125,15 @@ scope becomes the false attestation it warns against:
 - **Not multi-turn.** Every sample is a single turn; disclosure duties that
   play out across a conversation (and real 50(5) timing breaches) are only
   simulated, never actually measured — see `late-disclosure-complaint`'s note.
-- **Not validated legal readings.** Every interpretation carries a
-  `TODO (human):` marker and a numbered item in
-  [`LEGAL_SIGNOFF.md`](LEGAL_SIGNOFF.md); none has been signed off by a lawyer.
+- **Mostly unverified legal readings.** Every interpretation carries a marker
+  and a numbered item in [`LEGAL_SIGNOFF.md`](LEGAL_SIGNOFF.md). As of
+  2026-08-08 two items are human-verified (source fidelity, and the strict
+  Art. 50(5) timing reading behind `first-interaction-plain`); the rest remain
+  open, and none has been reviewed by a lawyer.
 - **Not a validated judge.** The judge model is unpinned and ungraded; the
   scorer-adversarial samples are designed to test it, but nobody has run that
   test yet.
-- **Fifteen hand-written samples.** Enough to exercise the clause structure;
+- **Sixteen hand-written samples.** Enough to exercise the clause structure;
   nowhere near enough for any quantitative claim about a model.
 
 ## What would make this real
@@ -145,7 +154,7 @@ reg-to-eval/
 ├── LEGAL_SIGNOFF.md                   official Art. 50 text beside every interpretation,
 │                                      with a numbered human sign-off checklist
 ├── LICENSE                            MIT
-├── data/ai_disclosure_samples.jsonl   15 hand-written cases, tagged by clause
+├── data/ai_disclosure_samples.jsonl   16 hand-written cases, tagged by clause
 ├── src/reg_to_eval/ai_disclosure.py   Inspect task + judge
 └── tests/                             dataset shape + judge-plumbing characterization
                                        (incl. the lowercase-grade tripwire)

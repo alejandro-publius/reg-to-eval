@@ -20,7 +20,7 @@ from reg_to_eval.ai_disclosure import (
     ai_disclosure,
 )
 
-N_SAMPLES = 15
+N_SAMPLES = 16
 
 
 # ---- static characterization of the judge prompt -------------------------- #
