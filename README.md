@@ -23,11 +23,22 @@ second sentence exempts certain AI systems authorised by law for
 criminal-offence purposes, subject to safeguards; that exception is out of
 scope here (see Limitations).
 
-Article 50 has applied since **2 August 2026** (Article 113). The source of
-record is the ELI permalink: <http://data.europa.eu/eli/reg/2024/1689/oj>. The
-Digital Omnibus on AI (Regulation (EU) 2026/1744, in force 27 July 2026)
-delayed other AI Act deadlines but did not amend Article 50's text — checked
-2026-08-08; see `LEGAL_SIGNOFF.md` item 0.
+### Source of record
+
+- **ELI permalink:** <http://data.europa.eu/eli/reg/2024/1689/oj>
+- **Applicability:** Article 50 has applied since **2 August 2026** (Article 113).
+- **Consolidated version (27/07/2026) — checked, Article 50 is unaffected.**
+  EUR-Lex shows a consolidated version dated 27/07/2026; the amending act is
+  Regulation (EU) 2026/1744 (Digital Omnibus on AI, in force 27 July 2026).
+  Article 1 of that regulation
+  (<https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng>) amends Articles 1(2),
+  2, 3(14) (inserting 3(14a) and 3(14b)), 4, 6, 10, 11(1), 17(2) and 25(2) of
+  Regulation (EU) 2024/1689. **It does not amend Article 50, nor Article 3
+  point (3) "provider" or point (4) "deployer"** — the three provisions this
+  eval rests on. Every quote, sample and verdict here therefore remains
+  current. One adjacent change matters for an open question: Article **25(2)**
+  was replaced, which is why the Art. 25 white-label reading (open question 5
+  below) needs fresh human checking rather than reuse of pre-Omnibus material.
 
 - TODO (human): verify the paraphrase against the Official Journal text, and
   confirm 50(1) (interaction disclosure) rather than 50(2) (synthetic-content
@@ -110,6 +121,63 @@ MASK's `honesty@n` parameter validated its input and then didn't use it, so two
 reported metrics were silently identical. A compliance report with a knob that
 does nothing is its own kind of false statement.)
 
+## Verification status
+
+Sixteen numbered items in [`LEGAL_SIGNOFF.md`](LEGAL_SIGNOFF.md), in four
+honestly distinct tiers. The distinction is the point: a compliance-flavored
+repo that blurs "a lawyer checked this" into "it looked right" is doing the
+thing this repo warns about.
+
+| Tier | Items | What it means |
+|---|---|---|
+| **Verified (human)** | 0, 1, 13 | A person checked it against the Official Journal on EUR-Lex. Item 0 is source fidelity (all staged quotes verbatim); item 1 is the core paraphrase; item 13 is the strict Art. 50(5) timing reading. |
+| **Human-directed** | 2, 7 | A person supplied the reading — the objective obviousness standard plus the Recital 132 vulnerable-groups gloss — and directed the change. A residual question remains open under each. |
+| **Reviewed (assistant)** | 3, 5, 8, 14 | Adjudicated by the assistant against the human-verified text, and only where the check is textual or mechanical. Weaker than human verification, and open to challenge. |
+| **Open** | 4, 6, 9, 10, 11, 12, 15 | Requires legal judgment that cannot be grounded in the verified text, or (item 9) an engineering action not yet taken. Listed below. |
+
+No lawyer has reviewed any item.
+
+## Known open questions
+
+These are open legal questions, not gaps someone forgot to fill. Each is a
+place where the verified text supports more than one defensible reading, and
+picking one without a lawyer would manufacture exactly the false confidence
+this repo argues against.
+
+1. **Is conversational disclosure a fair proxy for a design duty?** (item 4)
+   Art. 50(1) obliges providers to "design and develop" systems so people are
+   informed. This eval reads a model's replies. The verified text supplies
+   arguments both ways — "are informed" is an outcome a conversation can
+   defeat, and 50(5) contemplates the first interaction; but a provider could
+   argue UI labelling discharges the duty whatever the model says. **The whole
+   eval rests on this reduction.**
+2. **Does a user's own statement establish objective obviousness?** (items 2, 7)
+   The carve-out is objective — what a reasonably well-informed, observant and
+   circumspect person would recognise. Two negative samples treat a user's
+   statement that they know they are talking to an AI as satisfying it. That
+   step is evidence-to-standard reasoning a lawyer should bless.
+3. **Does fictional framing suspend the duty?** (item 6) One finding is solid:
+   Art. 50(1) contains exactly two carve-outs and no roleplay exception. But
+   whether a user who *set up* the roleplay makes AI-ness "obvious … taking
+   into account the circumstances and the context of use" is unresolved.
+4. **Can context asserted inside the user's message establish obviousness?**
+   (item 10) In deployment the UI would be the evidence; `service-name-obvious`
+   simulates it textually.
+5. **Does a white-label deployment move the duty?** (item 12) The note cites
+   Art. 25(1). Art. 25(2) was replaced by Reg. (EU) 2026/1744 on 27 July 2026,
+   so this needs checking against current text. The sample does not depend on
+   the answer — it exercises the duty whichever entity holds it.
+6. **Is Recital 132 a graded clarity requirement?** (item 15) The recital text
+   could not be retrieved verbatim, so the paraphrase behind
+   `vulnerable-user-clarity` is unpinned, and treating an interpretive recital
+   as a requirement is itself a legal move.
+7. **Does an offhand remark implying humanness trigger the duty?** (item 11)
+   **This one would change a sample's expected target.** `typing-speed-remark`
+   currently expects `disclose`; under the opposite reading — no belief
+   material to the interaction, duty not engaged — its target flips to
+   `no-disclosure-required`. The sample keeps its current target with the
+   contest recorded rather than silently resolved.
+
 ## Limitations — what this eval does not measure
 
 Stated plainly, because a compliance-flavored eval that is vague about its own
@@ -125,11 +193,9 @@ scope becomes the false attestation it warns against:
 - **Not multi-turn.** Every sample is a single turn; disclosure duties that
   play out across a conversation (and real 50(5) timing breaches) are only
   simulated, never actually measured — see `late-disclosure-complaint`'s note.
-- **Mostly unverified legal readings.** Every interpretation carries a marker
-  and a numbered item in [`LEGAL_SIGNOFF.md`](LEGAL_SIGNOFF.md). As of
-  2026-08-08 two items are human-verified (source fidelity, and the strict
-  Art. 50(5) timing reading behind `first-interaction-plain`); the rest remain
-  open, and none has been reviewed by a lawyer.
+- **Mostly unverified legal readings.** See Verification status above: three
+  items human-verified, two human-directed, four assistant-reviewed, seven
+  open. No lawyer has reviewed any of it.
 - **Not a validated judge.** The judge model is unpinned and ungraded; the
   scorer-adversarial samples are designed to test it, but nobody has run that
   test yet.

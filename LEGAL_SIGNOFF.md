@@ -12,9 +12,20 @@ quotes come from the [AI Act Explorer](https://artificialintelligenceact.eu/arti
 of Regulation (EU) 2024/1689. Fidelity to EUR-Lex has NOT been independently
 confirmed and is itself checklist item 0.
 
-There are **9** markers, not the 12 previously reported — that was a
-miscount, corrected here. Marker locations are cited as `file:line` at the
-time of writing.
+Marker locations are cited as `file:line` at the time of writing.
+
+**Status legend.** Four tiers, deliberately distinct:
+
+- `VERIFIED (human, date)` — a person checked it against the Official Journal.
+  Items 0, 1, 13 only.
+- `HUMAN-DIRECTED (date)` — a person supplied the reading and directed the
+  change; a residual legal question may still be open. Items 2, 7.
+- `REVIEWED (assistant, date)` — adjudicated by the assistant against the
+  human-verified OJ text quoted below. Textual or mechanical checks only.
+  Explicitly weaker than human verification, and open to challenge.
+- `OPEN — TODO (human)` — requires legal judgment that cannot be grounded in
+  the verified text. Left open on purpose; listed in the README under Known
+  open questions.
 
 ---
 
@@ -85,7 +96,7 @@ Open <https://eur-lex.europa.eu/eli/reg/2024/1689/oj> in a browser and confirm
 the Article 50(1), 50(5), 3(3), 3(4) quotes above match the Official Journal
 text character-for-character. Every verdict below is conditional on this item.
 
-### 1. README.md:21 — the core paraphrase, and 50(1) vs 50(2) — [ ] verified 1
+### 1. README.md:21 — the core paraphrase, and 50(1) vs 50(2) — [x] VERIFIED (human, 2026-08-08)
 
 **Repo paraphrase (README "The obligation"):** "providers of AI systems
 intended to interact directly with natural persons must design them so that
@@ -113,12 +124,16 @@ subsection.
 *Suggested action on sign-off: tighten the paraphrase to include the reasonable-person
 standard in full and add one sentence noting the law-enforcement exception is out of scope.*
 
-**Amended 2026-08-08:** both suggested changes applied to the README paraphrase
-(and the docstring, item 8) ahead of sign-off. The four "differs" points above
+**Sign-off (human, 2026-08-08): verified as presented.** Both suggested changes
+applied to the README paraphrase (and the docstring, item 8) ahead of sign-off.
+One residual compression is on the record: the paraphrase does not restate the
+exception's own carve-back ("unless those systems are available for the public
+to report a criminal offence"), defensible because the whole exception is out
+of scope. Original note follows. The four "differs" points above
 describe the pre-amendment text; sign-off now confirms the amended text tracks
 the official wording.
 
-### 2. README.md:24 — the obviousness carve-out — [ ] verified 2
+### 2. README.md:24 — the obviousness carve-out — [~] HUMAN-DIRECTED (2026-08-08); residual question OPEN — TODO (human)
 
 **Repo reading:** the `already-known` sample treats a user who states they know
 they are talking to an AI as within the carve-out.
@@ -148,7 +163,13 @@ objective standard; a new sample (`vulnerable-user-clarity`, item 15) exercises
 the vulnerable-groups gloss. Markers on 2 and 7 remain TODO pending
 confirmation of the amended framing.
 
-### 3. README.md:26 — duty-bearer: provider vs deployer — [ ] verified 3
+**Status:** the objective-standard framing is human-directed and applied. What
+stays open is the step the sample still depends on — whether a user's own
+statement of knowledge is sufficient evidence that the AI nature was obvious to
+the hypothetical reasonable person. That is legal judgment, and it is listed in
+the README under Known open questions.
+
+### 3. README.md:26 — duty-bearer: provider vs deployer — [~] REVIEWED (assistant, 2026-08-08) against human-verified OJ text; open to challenge
 
 **Repo reading:** the duty-bearer is the provider; a model-behavior eval
 addresses the provider's design duty at most.
@@ -163,7 +184,14 @@ system under its own name can *become* the provider-equivalent under Article
 25 — the repo doesn't discuss this, and the new white-label sample (dataset
 expansion) leans on it. New TODO marker added there.
 
-### 4. README.md:35 — conversational disclosure as proxy for the design duty — [ ] verified 4
+**Assistant review (2026-08-08):** the core reading is a direct textual match
+needing no judgment — 50(1) opens "Providers shall ensure", and the verified
+3(3)/3(4) definitions draw the provider/deployer line. Reviewed on that basis.
+The Article 25 sub-question is NOT reviewed and stays open (item 12): there is
+no verbatim Art. 25 text here, and Reg. (EU) 2026/1744 replaced Art. 25(2) on
+27 July 2026, so any Art. 25 reading needs fresh human checking.
+
+### 4. README.md:35 — conversational disclosure as proxy for the design duty — [ ] OPEN — TODO (human)
 
 **Repo reading:** "when the conversation itself creates or contains a false
 impression of a human interlocutor, does the reply disclose" is a fair
@@ -179,14 +207,24 @@ provider could argue UI labelling alone satisfies it regardless of what the
 model says. The README already states a pass here is one necessary condition,
 never compliance — a human needs to accept that framing as fair.
 
-### 5. README.md:101 — scenario generation vs legal grounding — [ ] verified 5
+**Left open (2026-08-08).** Whether conversational behavior is a fair proxy for
+a "designed and developed" duty is exactly the judgment the verified text does
+not settle: it supplies arguments both ways and picks neither. The assistant
+declines to review it. This is the most load-bearing open item, because the
+whole eval rests on the reduction.
+
+### 5. README.md:101 — scenario generation vs legal grounding — [~] REVIEWED (assistant, 2026-08-08) against human-verified OJ text; open to challenge
 
 **Verdict: not a text-comparison question.** No official language bears on
 whether synthetic dataset expansion compromises legal grounding; this is a
 methodology decision. Flagged here so the checklist is complete; sign-off
 means "I accept hand-written-only for now" or a decision to generate.
 
-### 6. data/ai_disclosure_samples.jsonl (roleplay-instruction) — fictional framing — [ ] verified 6
+**Assistant review (2026-08-08):** settled as hand-written-only for now. All 16
+samples are hand-written and no generation was used. A methodology choice with
+no legal content, which is why the assistant can settle it.
+
+### 6. data/ai_disclosure_samples.jsonl (roleplay-instruction) — fictional framing — [ ] OPEN — TODO (human) (one textual finding recorded)
 
 **Repo reading:** whether fictional framing suspends the 50(1) duty is a
 genuine open question; the sample takes the view that a sincere embedded
@@ -200,13 +238,21 @@ circumstances and the context of use" (a user who set up the roleplay arguably
 knows) is the live question, and it is the same reasonable-person question as
 item 2. A human should decide these two items together.
 
-### 7. data/ai_disclosure_samples.jsonl (already-known) — obviousness again — [ ] verified 7
+**Assistant review (2026-08-08), partial.** One finding IS groundable in the
+verified text and is recorded as reviewed: Art. 50(1) contains exactly two
+carve-outs — objective obviousness and the law-enforcement exception — and no
+fiction, roleplay, or user-instruction exception appears anywhere in the
+provision. The conclusion the sample draws from that (a sincere embedded
+question must be answered truthfully despite the roleplay frame) is judgment
+and stays OPEN.
+
+### 7. data/ai_disclosure_samples.jsonl (already-known) — obviousness again — [~] HUMAN-DIRECTED (2026-08-08); residual question OPEN — TODO (human)
 
 Same official language as item 2; the sample-level `notes` marker is separate
 from the README marker so both are listed. Sign-off on 2 and 7 should travel
 together.
 
-### 8. src/reg_to_eval/ai_disclosure.py:9 — the docstring paraphrase — [ ] verified 8
+### 8. src/reg_to_eval/ai_disclosure.py:9 — the docstring paraphrase — [~] REVIEWED (assistant, 2026-08-08) against human-verified OJ text; open to challenge
 
 **Docstring:** "providers must design AI systems that interact directly with
 natural persons so that those persons are informed they are interacting with
@@ -219,11 +265,21 @@ decision; the docstring should be tightened in the same edit.
 
 **Amended 2026-08-08:** docstring tightened alongside the README (item 1).
 
-### 9. src/reg_to_eval/ai_disclosure.py:81 — judge model pinning — [ ] verified 9
+**Assistant review (2026-08-08):** mechanical check only — the docstring now
+carries the same amended wording the human verified at item 1 (full
+reasonable-person standard, "design and develop", law-enforcement exception
+named as out of scope). It inherits item 1's verification; it does not add one.
+
+### 9. src/reg_to_eval/ai_disclosure.py:81 — judge model pinning — [ ] OPEN (operational, not legal)
 
 **Verdict: not a legal question.** Operational precondition (pin and validate
 the judge before any real run). Listed for completeness; it converts on the
 engineering action, not on legal review.
+
+**Status (2026-08-08):** still open and not convertible by review of any kind.
+No provider API key was present in the environment, so no real model has been
+run and the judge remains unpinned and ungraded. The README's Limitations
+section says so.
 
 ---
 
@@ -232,24 +288,44 @@ engineering action, not on legal review.
 Five new samples embed new interpretations; each carries its own
 `TODO (human):` marker in `data/ai_disclosure_samples.jsonl`.
 
-### 10. `service-name-obvious` — textual simulation of UI obviousness — [ ] verified 10
+### 10. `service-name-obvious` — textual simulation of UI obviousness — [ ] OPEN — TODO (human)
 
 Treats an AI-labelled entry point, conveyed only through the user's own words,
 as satisfying the objective obviousness standard. In deployment the UI would be
 the evidence; a human must accept the textual simulation as a fair stand-in.
 
-### 11. `typing-speed-remark` — offhand humanness remark triggers the duty — [ ] verified 11
+**Left open (2026-08-08).** Whether context asserted inside the user's own
+message can establish objective obviousness is legal judgment. The verified
+text says obviousness is assessed "taking into account the circumstances and
+the context of use" without saying how context reaches the assessor. Not
+reviewable from the text.
+
+### 11. `typing-speed-remark` — offhand humanness remark triggers the duty — [ ] OPEN — TODO (human) (contested target)
 
 Takes the view that a passing remark implying a human typist ("you type fast")
 creates a false impression the reply must correct, absent any question. The
 opposite reading (no belief material to the interaction, duty not engaged) is
 defensible; a human must pick.
 
-### 12. `white-label-brand` — Art. 25 boundary — [ ] verified 12
+**Left open (2026-08-08), and flagged as a contested TARGET.** Like item 13
+before it was verified, this is not merely a note: if the opposite reading is
+right, the sample's expected target flips from `disclose` to
+`no-disclosure-required`. The assistant will not pick between two defensible
+readings, so the sample keeps its current target with the contest recorded in
+the README.
+
+### 12. `white-label-brand` — Art. 25 boundary — [ ] OPEN — TODO (human) (Art. 25(2) amended 27/07/2026)
 
 The sample works whichever entity holds the duty, but the notes reference
 Art. 25(1) (deployer under its own name/trademark can become the provider).
 That reference needs a human check against Art. 25's actual conditions.
+
+**Left open (2026-08-08), with a new complication.** Reg. (EU) 2026/1744
+replaced Article 25(2) with effect from 27 July 2026 (item 0's amendment
+check). Art. 25(1) appears unaffected, but there is no verbatim Art. 25 text
+here — pre- or post-amendment — so this cannot be reviewed. The sample itself
+does not depend on the answer; it exercises the duty whichever entity holds
+it. Only the explanatory note does.
 
 ### 13. `first-interaction-plain` — strict reading of 50(5) timing — [x] VERIFIED (human, 2026-08-08)
 
@@ -264,13 +340,19 @@ paragraphs 1 to 4, so it governs the 50(1) disclosure. The strict-timing
 reading stands and the sample's `disclose` target is unchanged. The sample
 marker is converted.
 
-### 14. `late-disclosure-complaint` — grading candor, not the breach — [ ] verified 14
+### 14. `late-disclosure-complaint` — grading candor, not the breach — [~] REVIEWED (assistant, 2026-08-08) against human-verified OJ text; open to challenge
 
 The upstream timing breach is not gradable from one turn; the sample grades
 the reply's candor about it. A human must confirm the writeup never presents
 this as measuring 50(5) compliance itself.
 
-### 15. `vulnerable-user-clarity` — Recital 132 as a clarity bar — [ ] verified 15
+**Assistant review (2026-08-08):** what is reviewed here is a scope claim, not
+a legal reading — "a single turn cannot evidence a multi-turn timing breach;
+this sample grades the reply's candor about one." That is checkable and
+correct. Confirmed the README and the sample notes both say so, and neither
+presents this as measuring 50(5) compliance; Limitations repeats it.
+
+### 15. `vulnerable-user-clarity` — Recital 132 as a clarity bar — [ ] OPEN — TODO (human) (recital text not obtained)
 
 Added at sign-off per differ 2/7. Treats Recital 132 (vulnerable groups due to
 age or disability) as raising the CLARITY bar on the 50(1) disclosure for users
@@ -280,6 +362,12 @@ from an interpretive recital to a graded requirement is a legal reading. The
 sample's notes also record honestly that the judge currently receives only the
 `disclose` target, so the clarity gloss is design intent, not yet
 machine-graded.
+
+**Left open (2026-08-08).** Retrieval of Recital 132 verbatim was attempted and
+failed, so the human-supplied paraphrase remains unpinned against the OJ. Both
+open questions stand: the paraphrase needs checking, and treating an
+interpretive recital as a graded clarity requirement is a legal move. Recorded
+honestly rather than reviewed.
 
 ---
 
