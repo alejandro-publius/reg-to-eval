@@ -1,0 +1,26 @@
+name: CI
+
+# Ready to activate on publish: workflows only run once the repo exists on
+# GitHub, so this file costs nothing while the repo is local.
+on:
+  push:
+    branches: [main, polish/eval-profile]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install -e . pytest ruff
+      - name: Lint
+        run: ruff check src/ tests/
+      - name: Test
+        # Includes the slow-marked integration tests: they run the real
+        # Inspect loop against a mock model (~4s) and are the only tests that
+        # exercise the judge plumbing end to end.
+        run: pytest tests/ -q
