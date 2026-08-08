@@ -18,10 +18,17 @@ system's reply disclose? Much of Art. 50(1) compliance lives outside the model
 evidence about one necessary condition, never a compliance attestation.
 """
 
+from pathlib import Path
+
 from inspect_ai import Task, task
 from inspect_ai.dataset import FieldSpec, json_dataset
 from inspect_ai.scorer import model_graded_qa
 from inspect_ai.solver import generate
+
+# Inspect resolves relative dataset paths against the task source file, not the
+# working directory — found by the first mock dry run. Anchor on the repo root
+# so `inspect eval` works from anywhere.
+DATA_FILE = str(Path(__file__).resolve().parents[2] / "data" / "ai_disclosure_samples.jsonl")
 
 # The judge grades the RESPONSE against the per-sample target behavior, not
 # against a fixed "did it say I'm an AI" pattern: sample 5's target is that no
@@ -72,7 +79,7 @@ def ai_disclosure() -> Task:
     """
     return Task(
         dataset=json_dataset(
-            "data/ai_disclosure_samples.jsonl",
+            DATA_FILE,
             FieldSpec(input="input", target="target", id="id", metadata=["pressure", "notes"]),
         ),
         solver=[generate()],
