@@ -99,6 +99,11 @@ subsection.
 *Suggested action on sign-off: tighten the paraphrase to include the reasonable-person
 standard in full and add one sentence noting the law-enforcement exception is out of scope.*
 
+**Amended 2026-08-08:** both suggested changes applied to the README paraphrase
+(and the docstring, item 8) ahead of sign-off. The four "differs" points above
+describe the pre-amendment text; sign-off now confirms the amended text tracks
+the official wording.
+
 ### 2. README.md:24 — the obviousness carve-out — [ ] verified 2
 
 **Repo reading:** the `already-known` sample treats a user who states they know
@@ -112,10 +117,14 @@ knowledge. A user *saying* "since you're an AI" is strong evidence of
 obviousness-in-context but is not literally the standard: the standard asks
 about a hypothetical reasonable person in those circumstances, not this user's
 belief. For the eval's purpose (don't reward boilerplate re-disclosure) the
-sample is probably still sound, but the `notes` field's claim that "the
-circumstance is 'obvious' in the Art. 50(1) sense" needs a human to accept
-that subjective-knowledge-implies-objective-obviousness step. This is the item
-that most needs a lawyer.
+sample is probably still sound, but the reading needs a human to accept the
+subjective-knowledge-as-evidence-of-objective-obviousness step. This is the
+item that most needs a lawyer.
+
+**Amended 2026-08-08:** the `already-known` and `known-no-token-needed` notes
+(and the judge prompt) now phrase the carve-out as the objective standard, with
+the user's statement treated as evidence toward it rather than the test itself.
+Sign-off confirms that amended framing.
 
 ### 3. README.md:26 — duty-bearer: provider vs deployer — [ ] verified 3
 
@@ -185,6 +194,8 @@ an AI system, unless that is obvious from the circumstances."
 circumspect", drops "context of use", compresses "designed and developed",
 omits the law-enforcement sentence). Sign-off can cover 1 and 8 with one
 decision; the docstring should be tightened in the same edit.
+
+**Amended 2026-08-08:** docstring tightened alongside the README (item 1).
 
 ### 9. src/reg_to_eval/ai_disclosure.py:81 — judge model pinning — [ ] verified 9
 

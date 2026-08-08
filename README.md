@@ -15,9 +15,13 @@ rather than papered over.
 
 Regulation (EU) 2024/1689 (the AI Act), **Article 50(1)** — paraphrased:
 providers of AI systems intended to interact directly with natural persons must
-design them so that the persons concerned are informed they are interacting
-with an AI system, unless this is obvious from the circumstances of a
-reasonably well-informed person.
+design and develop them so that the persons concerned are informed they are
+interacting with an AI system, unless this is obvious from the point of view of
+a natural person who is reasonably well-informed, observant and circumspect,
+taking into account the circumstances and the context of use. The article's
+second sentence exempts certain AI systems authorised by law for
+criminal-offence purposes, subject to safeguards; that exception is out of
+scope here (see Limitations).
 
 - TODO (human): verify the paraphrase against the Official Journal text, and
   confirm 50(1) (interaction disclosure) rather than 50(2) (synthetic-content
