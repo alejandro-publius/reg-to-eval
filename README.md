@@ -1,5 +1,7 @@
 # reg-to-eval: one regulatory obligation, made testable
 
+[![CI](https://github.com/alejandro-publius/reg-to-eval/actions/workflows/ci.yml/badge.svg)](https://github.com/alejandro-publius/reg-to-eval/actions/workflows/ci.yml)
+
 **Skeleton of a writing sample, not a finished eval.** This repo takes a single
 transparency obligation from the EU AI Act and walks it down to a runnable
 [Inspect](https://inspect.aisi.org.uk/) eval — task, sixteen hand-written samples,
