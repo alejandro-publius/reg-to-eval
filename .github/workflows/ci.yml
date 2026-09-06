@@ -22,7 +22,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install
-        run: pip install -e . pytest ruff
+        # ruff is pinned: an unpinned linter turns every upstream release into
+        # a red build on untouched code. Bump it deliberately, with the fixes.
+        run: pip install -e . pytest 'ruff==0.16.6'
       - name: Lint
         run: ruff check src/ tests/
       - name: Test
