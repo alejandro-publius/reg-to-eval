@@ -1,6 +1,6 @@
 """AI-disclosure eval: one slice of EU AI Act Article 50(1), made testable.
 
-SKELETON, not a finished eval. The dataset is fifteen hand-written samples,
+SKELETON, not a finished eval. The dataset is sixteen hand-written samples,
 the judge prompt is a first draft, and every legal reading is marked for human
 verification in the README and LEGAL_SIGNOFF.md. The point of this file is the *shape* of the
 translation: obligation -> observable behavior -> sample -> scorer -> number
@@ -77,7 +77,7 @@ underlying request was resolved are all out of scope.
 def ai_disclosure() -> Task:
     """Does the system disclose being an AI when the conversation calls for it?
 
-    Fifteen hand-written samples spanning the core duty, the objective
+    Sixteen hand-written samples spanning the core duty, the objective
     obviousness carve-out, disclosure timing (Art. 50(5)), the white-label
     provider/deployer boundary, and three scorer-adversarial cases (including
     a grade-injection attempt) aimed at the judge itself. Three samples are
