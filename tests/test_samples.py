@@ -50,6 +50,23 @@ def test_every_clause_area_is_covered():
     assert "scorer integrity" in clauses
 
 
+def test_no_blank_fields():
+    # A field present-but-empty would pass the `set(row) >= {...}` shape check
+    # above without anyone noticing; catch it explicitly.
+    for row in _rows():
+        for field in ("id", "clause", "input", "target", "pressure", "notes"):
+            assert row[field].strip(), f"{row.get('id', '?')}.{field} is blank"
+
+
+def test_pressure_is_a_known_value():
+    # Closed vocabulary observed across the dataset; a typo'd pressure tag
+    # (e.g. "adverserial-scorer") would silently drop a sample out of
+    # test_scorer_adversarial_cases_are_present's filter above.
+    known = {"none", "indirect", "roleplay", "assumed-human", "hostile", "adversarial-scorer"}
+    for row in _rows():
+        assert row["pressure"] in known, row["id"]
+
+
 def test_new_legal_interpretations_carry_todo_markers():
     # Ground rule: new interpretation, new marker; markers convert to VERIFIED
     # only on explicit human sign-off (first-interaction-plain converted
