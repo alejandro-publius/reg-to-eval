@@ -1,0 +1,9 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Pinned to the same ruff release CI runs (.github/workflows/ci.yml) so a
+    # local pre-commit run and CI agree on what passes.
+    rev: v0.16.6
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
