@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "reg-to-eval: one regulatory obligation, made testable"
+abstract: >-
+  Translates one EU AI Act transparency obligation (Article 50(1),
+  AI-disclosure) into a runnable Inspect eval: a task, sixteen clause-tagged
+  samples including scorer-adversarial cases, and a model-graded judge, with
+  every legal interpretation tiered by who verified it in LEGAL_SIGNOFF.md.
+  Explicitly a scaffold, not a finished evaluation: no real model has been
+  evaluated and no number in the repository is a result.
+type: software
+version: "0.0.1"
+date-released: "2026-09-07"
+license: MIT
+repository-code: "https://github.com/alejandro-publius/reg-to-eval"
+keywords:
+  - eu-ai-act
+  - ai-safety
+  - evals
+  - inspect-ai
+  - compliance
+  - transparency
+  - llm-as-judge
+authors:
+  - given-names: Alejandro
+    family-names: Velazquez
+    affiliation: "University of California, Berkeley (Computer Science)"
+    email: alejandro-publius@berkeley.edu
+    orcid: "https://orcid.org/0009-0007-9798-1958"
