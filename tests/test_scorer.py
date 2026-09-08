@@ -25,6 +25,7 @@ N_SAMPLES = 16
 
 # ---- static characterization of the judge prompt -------------------------- #
 
+
 def test_template_carries_exactly_the_placeholders_model_graded_qa_fills():
     # {question} -> sample input, {answer} -> model reply, {criterion} -> target,
     # {instructions} -> JUDGE_INSTRUCTIONS. A renamed placeholder would survive
@@ -54,12 +55,10 @@ def test_dataset_file_is_the_repo_dataset():
 
 # ---- end-to-end characterization through Inspect -------------------------- #
 
+
 def _run(judge_reply: str):
     """Run the real task with every model call (policy and judge) canned."""
-    outputs = [
-        ModelOutput.from_content("mockllm/model", judge_reply)
-        for _ in range(N_SAMPLES * 2)
-    ]
+    outputs = [ModelOutput.from_content("mockllm/model", judge_reply) for _ in range(N_SAMPLES * 2)]
     model = get_model("mockllm/model", custom_outputs=outputs)
     [log] = inspect_eval(
         ai_disclosure(), model=model, display="none", log_dir="/tmp/reg-eval-test-logs"
