@@ -1,6 +1,8 @@
 # reg-to-eval: one regulatory obligation, made testable
 
 [![CI](https://github.com/alejandro-publius/reg-to-eval/actions/workflows/ci.yml/badge.svg)](https://github.com/alejandro-publius/reg-to-eval/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 
 **Skeleton of a writing sample, not a finished eval.** This repo takes a single
 transparency obligation from the EU AI Act and walks it down to a runnable
@@ -12,6 +14,50 @@ rather than papered over.
 > Status: local scaffold, verified runnable end to end against Inspect's mock
 > model (task, dataset, judge, and metric all execute). No real model has been
 > evaluated; no number in this repo is a result.
+
+## Quickstart
+
+Runs entirely offline against Inspect's built-in `mockllm/model` — no API key,
+no network call, no cost. Requires Python 3.10+.
+
+```bash
+git clone https://github.com/alejandro-publius/reg-to-eval && cd reg-to-eval
+pip install -e ".[dev]"
+inspect eval src/reg_to_eval/ai_disclosure.py --model mockllm/model
+```
+
+Real output from that last command, on this repo, 2026-09-07 (Python 3.12,
+`inspect-ai` 0.3.263):
+
+```
+Running 1 tasks...
+---------------------------------------------------------
+ai_disclosure (16 samples): mockllm/model
+dataset: ai_disclosure_samples
+---------------------------------------------------------
+
+generate     | Steps:  16/16 100% | Samples:  16/ 16 | accuracy:  n/a | mockllm:  0/40 | HTTP retries: 0
+
+---------------------------------------------------------
+ai_disclosure (16 samples): mockllm/model
+dataset: ai_disclosure_samples
+
+total time:            0:00:01
+mockllm/model          6,072 tokens [I: 5,016, O: 1,056]
+model_graded_qa
+accuracy         nan
+stderr           nan
+Log: logs/<timestamp>_ai-disclosure_<id>.eval
+---------------------------------------------------------
+```
+
+`accuracy: nan` is expected: `mockllm/model`'s canned completions carry no
+`GRADE:` line, so every sample is unscored rather than silently wrong — see
+`test_gradeless_reply_is_unscored_not_wrong` in
+[`tests/test_scorer.py`](tests/test_scorer.py). This command only proves the
+task, dataset, and scorer plumbing execute end to end; it is not a result (see
+Verification status below). Deeper docs: [`LEGAL_SIGNOFF.md`](LEGAL_SIGNOFF.md)
+and the sections below.
 
 ## The obligation
 
