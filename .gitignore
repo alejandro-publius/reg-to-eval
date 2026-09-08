@@ -2,3 +2,7 @@ __pycache__/
 .venv/
 *.egg-info/
 .pytest_cache/
+.ruff_cache/
+# `inspect eval` writes its .eval log here by default when run from the repo
+# root without --log-dir (see the Quickstart in README.md).
+logs/
