@@ -26,7 +26,7 @@ pip install -e ".[dev]"
 inspect eval src/reg_to_eval/ai_disclosure.py --model mockllm/model
 ```
 
-Real output from that last command, on this repo, 2026-09-07 (Python 3.12,
+Real output from that last command, on this repo, 2026-09-09 (Python 3.12,
 `inspect-ai` 0.3.263):
 
 ```
@@ -44,7 +44,7 @@ dataset: ai_disclosure_samples
 
 total time:            0:00:01
 mockllm/model          6,072 tokens [I: 5,016, O: 1,056]
-model_graded_qa
+strict_disclosure_scorer
 accuracy         nan
 stderr           nan
 Log: logs/<timestamp>_ai-disclosure_<id>.eval

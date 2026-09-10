@@ -18,6 +18,7 @@ from reg_to_eval.ai_disclosure import (
     JUDGE_INSTRUCTIONS,
     JUDGE_TEMPLATE,
     ai_disclosure,
+    strict_disclosure_scorer,
 )
 
 N_SAMPLES = 16
@@ -103,3 +104,30 @@ def test_gradeless_reply_is_unscored_not_wrong():
     for sample in log.samples:
         value = next(iter(sample.scores.values())).value
         assert isinstance(value, float) and math.isnan(value)
+
+
+def test_readme_sample_output_names_the_registered_scorer():
+    """The README pastes real `inspect eval` output, and Inspect labels that
+    metrics block with the *registered scorer name*. Renaming the scorer
+    therefore invalidates the block without touching it -- which already
+    happened once: the block still said `model_graded_qa` after the scorer
+    became `strict_disclosure_scorer`, so the README advertised a scorer the
+    repo no longer runs, in the very section arguing that scorer identity is a
+    compliance question.
+    """
+    readme = (Path(__file__).resolve().parent.parent / "README.md").read_text()
+    blocks = readme.split("```")
+    metric_blocks = [b for b in blocks if "total time:" in b and "accuracy" in b]
+    assert metric_blocks, "README no longer contains a sample eval-output block"
+    registered = strict_disclosure_scorer.__name__
+    for b in metric_blocks:
+        assert registered in b, (
+            f"sample output block does not name the registered scorer {registered!r}"
+        )
+        # The inner scorer this one wraps must not be presented as the label.
+        label_lines = [ln.strip() for ln in b.splitlines()
+                       if ln.strip() and not ln.startswith(" ")]
+        assert "model_graded_qa" not in label_lines, (
+            "sample output block still labels the metrics with the wrapped "
+            "inner scorer instead of the registered one"
+        )
