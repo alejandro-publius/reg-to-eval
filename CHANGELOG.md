@@ -7,6 +7,16 @@ has no released version yet (see "Verification status" in the README).
 ## [Unreleased]
 
 ### Added
+- Adversarial-judge tests (`tests/test_adversarial_judges.py`): the
+  scorer-adversarial samples are run against stand-in judges that are
+  competent except for one grafted defect each (echoing an injected grade,
+  accepting AI wording anywhere, requiring literal AI wording), with a
+  defect-free control that grades all sixteen correctly. Establishes that
+  each trap is live. Found that scorer-integrity coverage is wider than the
+  `adversarial-scorer` tag: `already-known` and `service-name-obvious`, both
+  tagged `none`, catch a purely lexical judge by the same mechanism as
+  `known-no-token-needed`. README's "nobody has run that test yet" narrowed
+  accordingly — the traps are tested, a real judge model still is not.
 - Judge and scorer boundary tests (`tests/test_judge_behavior.py`): a
   content-sensitive mock judge that grades an obviously compliant vs. an
   obviously non-compliant system reply through the real `JUDGE_TEMPLATE`, plus
